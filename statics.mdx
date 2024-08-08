@@ -50,7 +50,7 @@ data = statics.filter(rag.retreive(prompt)) #line change
 
 With zero additional configuration, Statics is able to provide a data access log. With low configuration, Statics is able to create access control for your data depending on the user, machine, or agent permissions related to the incoming request. 
 
-## Access Control Creation Process
+### Access Control Creation Process
 
 After installation, you can create access control using either by uploading data to the service or pasting sample data into the Statics access control configuration portal. Using this data, you can have Statics suggest rules, write rule requests in plain English, or use a drag and drop interface to create rules visually. 
 
@@ -62,7 +62,7 @@ Statics will filter out any data from being passed downstream that a user, machi
 
 The following are examples of artifacts generated as part of the process.
 
-## LangChain Access Control Example
+### LangChain Access Control Example
 For filtering within a LangChain chain, Statics will pull the metadata passed within the data stream.
 
 ```python Sample Data
@@ -147,7 +147,7 @@ if re.match(r"https://en\.wikipedia\.org", url_to_check):
 return false
 ```
 
-## JSON Data Control (Vector, NoSQL, Relational, and Others) Access Control Example
+### JSON Data Control (Vector, NoSQL, Relational, and Others) Access Control Example
 
 If you are using Statics outside of a LangChain chain, pass your data to Statics as a JSON. This is recommended for direct use of VDBs, NoSQL DBs, Relational DBs, and other data sources. 
 
