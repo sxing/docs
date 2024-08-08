@@ -45,6 +45,12 @@
     }
   ],
   "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "statics"
+      ]
+    }
   ],
   "footerSocials": {
     "x": "https://x.com/mintlify",
