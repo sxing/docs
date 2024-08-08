@@ -46,8 +46,7 @@ from statics-ai import JSONFilter
 statics = JSONFilter("service-token","data-id") # line addition
 
 # ...processing...
-data = rag.retreive(prompt) 
-filtered = statics.filter(data) # line addition
+data = statics.filter(rag.retreive(prompt)) #line change
 
 # ...data goes downstream...
 
