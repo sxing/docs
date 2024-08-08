@@ -1,10 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
   "name": "Statics",
-  "logo": {
-    "dark": "/logo/darknone.svg",
-    "light": "/logo/lightnone.svg"
-  },
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#0D9373",
