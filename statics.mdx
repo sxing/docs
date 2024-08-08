@@ -16,16 +16,17 @@ pip install statics-ai
 
 #### Filter LangChain Chains
 
-After importing, there is only one line to insert per chain.
+After import, there is only one line to insert per chain.
 
 
 ```python
-from statics-ai import LangChainFilter as statics-filter # add line here
+from statics-ai import LangChainFilter as statics-filter # line addition
 
-# For a RAG chain inserting an LLM
+# ...instantiation...
+
 rag_chain = (
    {"context": retriever | format_docs, "question": RunnablePassthrough()}
-   | statics-filter("service-token","data-id") # add line here
+   | statics-filter("service-token","data-id") # line addition
    | prompt
    | llm
    | StrOutputParser()
@@ -35,18 +36,18 @@ rag_chain = (
 
 #### Filter JSON Data
 
-After importing, there are only two lines to insert per datasource.
+After import, there are only two lines to insert per datasource.
 
 
 ```python
 from statics-ai import JSONFilter
 
 # ...instantiation...
-statics = JSONFilter("service-token","data-id")
+statics = JSONFilter("service-token","data-id") # line addition
 
 # ...processing...
 data = rag.retreive(prompt) 
-filtered = statics.filter(data)
+filtered = statics.filter(data) # line addition
 
 # ...data goes downstream...
 
@@ -71,8 +72,7 @@ The following are examples of artifacts generated as part of the process.
 ## LangChain Access Control Example
 For filtering within a LangChain chain, Statics will pull the metadata passed within the data stream.
 
-#### Sample Data
-```python
+```python Sample Data
 [ 
 	Document(
 		page_content='Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans.', 
@@ -134,15 +134,12 @@ For filtering within a LangChain chain, Statics will pull the metadata passed wi
 
 In this example, the desired behavior is to not restrict access to any wikipedia data and to check an Access Control List for access to the secrets section.
 
-#### Upload Filter
-```python
+```python Upload Filter
 document_id = metadata.id
 source = metadata.source
 ```
 
-
-#### Access Control Rule
-```python
+```python Access Control Rule
 import re
 
 if re.match(r"/secrets/*", url_to_check):
@@ -159,10 +156,9 @@ return false
 
 ## JSON Data Control (Vector, NoSQL, Relational, and Others) Access Control Example
 
-If you are using Statics outside of a LangChain chain, pass your data to Statics as a JSON. This is recommended for direct use of VDBs, NoSQ DBs, Relational DBs, and other data sources. 
+If you are using Statics outside of a LangChain chain, pass your data to Statics as a JSON. This is recommended for direct use of VDBs, NoSQL DBs, Relational DBs, and other data sources. 
 
-#### Sample Data
-```json
+```json Sample Data
 {
   "data": [
 	{
@@ -232,14 +228,12 @@ If you are using Statics outside of a LangChain chain, pass your data to Statics
 
 In this example, the desired behavior is to extract the department that the document belongs to and then validate the user against a saved Access Control List. 
 
-#### Upload Filter 
-```python
+```python Upload Filter 
 document_id = data.[].id
 department = data.[].department
 ```
 
-#### Access Control Rule
-```python
+```python Access Control Rule
 match department:
   case "Sales" :
     if user in SALES_GROUP:
