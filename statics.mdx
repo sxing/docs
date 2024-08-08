@@ -45,10 +45,10 @@ Hit save and it goes into effect! Statics will filter out any data from being pa
 
 The following are examples of artifacts generated as part of the process.
 
-## LangChain
+## LangChain Access Control Example
 For filtering within a LangChain chain, Statics will pull the metadata passed within the data stream.
 
-#### Example Data
+#### Sample Data
 ```python
 [ 
   Document(page_content='Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans.', metadata={'chunk': 0.0, 'source': 'https://en.wikipedia.org/wiki/Artificial_intelligence', 'title': 'Artificial Intelligence', 'wiki-id': '5678'}), 
@@ -61,15 +61,16 @@ For filtering within a LangChain chain, Statics will pull the metadata passed wi
 
 ```
 
-#### Example Upload Filter & Access Control Rule. 
-
 In this example, the desired behavior is to not restrict access to any wikipedia data and to check an Access Control List for access to the secrets section.
 
+#### Upload Filter
 ```python
 document_id = metadata.id
 source = metadata.source
 ```
 
+
+#### Access Control Rule
 ```python
 import re
 
@@ -85,11 +86,11 @@ if re.match(r"https://en\.wikipedia\.org", url_to_check):
 return false
 ```
 
-## JSON Data Control (Vector, NoSQL, Relational, and Others)
+## JSON Data Control (Vector, NoSQL, Relational, and Others) Access Control Example
 
 If you are using Statics outside of a LangChain chain, pass your data to Statics as a JSON. This is recommended for direct use of VDBs, NoSQ DBs, Relational DBs, and other data sources. 
 
-#### Example Data
+#### Sample Data
 ```json
 {
   "data": [
@@ -158,15 +159,15 @@ If you are using Statics outside of a LangChain chain, pass your data to Statics
 
 ```
 
-#### Example Upload Filter & Access Control Rule. 
-
 In this example, the desired behavior is to extract the department that the document belongs to and then validate the user against a saved Access Control List. 
 
+#### Upload Filter 
 ```python
 document_id = data.[].id
 department = data.[].department
 ```
 
+#### Access Control Rule
 ```python
 match department:
   case "Sales" :
