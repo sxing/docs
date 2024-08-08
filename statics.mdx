@@ -14,7 +14,7 @@ Installation requires downloading the Statics package and a few changed lines in
 pip install statics-ai
 ```
 
-#### Import Statics and wrap your existing LangChain models
+#### Filter Your LangChain Chains
 ```python
 from statics-ai import LangChainFilter as statics-filter # add line here
 
@@ -29,6 +29,23 @@ rag_chain = (
 ```
 
 For applications using chains, there is only one line to import and one line to insert per chain.
+
+#### Filter JSON Data Sources
+```python
+from statics-ai import JSONFilter
+
+# ...instantiation...
+statics = JSONFilter("service-token","data-id")
+
+# ...processing...
+data = rag.retreive(prompt) 
+filtered = statics.filter(data)
+
+# ...data goes downstream...
+
+```
+
+In this case, there is only one line to import and two lines to insert per datasource.
 
 
 # Access Control
