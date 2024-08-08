@@ -51,12 +51,60 @@ For filtering within a LangChain chain, Statics will pull the metadata passed wi
 #### Sample Data
 ```python
 [ 
-  Document(page_content='Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans.', metadata={'chunk': 0.0, 'source': 'https://en.wikipedia.org/wiki/Artificial_intelligence', 'title': 'Artificial Intelligence', 'wiki-id': '5678'}), 
-  Document(page_content='AI research began in the mid-20th century, and has seen several waves of optimism and setbacks, including the famous AI winters.', metadata={'chunk': 1.0, 'source': 'https://en.wikipedia.org/wiki/Artificial_intelligence', 'title': 'Artificial Intelligence', 'wiki-id': '5678'}), 
-  Document(page_content='Machine learning, a subset of AI, involves the use of algorithms and statistical models to perform tasks without using explicit instructions.', metadata={'chunk': 3.0, 'source': 'https://en.wikipedia.org/wiki/Machine_learning', 'title': 'Machine Learning', 'wiki-id': '1234'}), 
-  Document(page_content='Neural networks, inspired by the human brain, are a key technology behind many modern AI applications, including image and speech recognition.', metadata={'chunk': 5.0, 'source': 'https://en.wikipedia.org/wiki/Neural_network', 'title': 'Neural Network', 'wiki-id': '9101'}), 
-  Document(page_content='Deep learning, a branch of machine learning, uses multiple layers of neural networks to model complex patterns in data.', metadata={'chunk': 5.0, 'source': 'https://en.wikipedia.org/wiki/Deep_learning', 'title': 'Deep Learning', 'wiki-id': '1121'}), 
-  Document(page_content='The following numbers are secret and should be restricted: 23 2 80', metadata={'chunk': 5.0, 'source': '/secrets/restrictednumbers', 'title': 'Restricted numbers'}) 
+	Document(
+		page_content='Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans.', 
+		metadata={
+			'chunk': 0.0, 
+			'source': 'https://en.wikipedia.org/wiki/Artificial_intelligence', 
+			'title': 'Artificial Intelligence', 
+			'wiki-id': '5678'
+		}
+	), 
+  	Document(
+		page_content='AI research began in the mid-20th century, and has seen several waves of optimism and setbacks, including the famous AI winters.', 
+		metadata={
+			'chunk': 1.0, 
+			'source': 'https://en.wikipedia.org/wiki/Artificial_intelligence', 
+			'title': 'Artificial Intelligence', 
+			'id': '5678'
+		}
+	), 
+  	Document(
+		page_content='Machine learning, a subset of AI, involves the use of algorithms and statistical models to perform tasks without using explicit instructions.', 
+		metadata={
+			'chunk': 3.0, 
+			'source': 'https://en.wikipedia.org/wiki/Machine_learning',
+			'title': 'Machine Learning', 
+			'id': '1234'
+		}
+	), 
+  	Document(
+		page_content='Neural networks, inspired by the human brain, are a key technology behind many modern AI applications, including image and speech recognition.', 
+		metadata={
+			'chunk': 5.0, 
+			'source': 'https://en.wikipedia.org/wiki/Neural_network', 
+			'title': 'Neural Network', 
+			'id': '9101'
+		}
+	), 
+  	Document(
+		page_content='Deep learning, a branch of machine learning, uses multiple layers of neural networks to model complex patterns in data.', 
+		metadata={
+			'chunk': 5.0, 
+			'source': 'https://en.wikipedia.org/wiki/Deep_learning', 
+			'title': 'Deep Learning', 
+			'id': '1121'
+		}
+	), 
+  	Document(
+		page_content='The following numbers are secret and should be restricted: 23 2 80', 
+		metadata={
+			'chunk': 5.0, 
+			'source': '/secrets/restrictednumbers', 
+			'title': 'Restricted numbers',
+			'id': 's235'
+		}
+	) 
 ]
 
 ```
