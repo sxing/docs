@@ -14,7 +14,7 @@ Installation requires downloading the Statics package and a few changed lines in
 pip install statics-ai
 ```
 
-#### Filter Your LangChain Chains
+#### Filter LangChain Chains
 ```python
 from statics-ai import LangChainFilter as statics-filter # add line here
 
@@ -28,7 +28,8 @@ rag_chain = (
 )
 ```
 
-For applications using chains, there is only one line to import and one line to insert per chain.
+After importing Statics, there is only one line to insert per chain.
+
 
 #### Filter JSON Data Sources
 ```python
@@ -45,7 +46,7 @@ filtered = statics.filter(data)
 
 ```
 
-In this case, there is only one line to import and two lines to insert per datasource.
+After importing Statics, there are only two lines to insert per datasource.
 
 
 # Access Control
