@@ -9,18 +9,14 @@ Statics is a security framework to control data access for LLMs. Including Stati
 # Installation
 Installation requires downloading the Statics package and a few changed lines in your code.
 
-#### Downloading Statics
-```bash
+```bash Download Statics
 pip install statics-ai
 ```
 
-#### Filter LangChain Chains
+For LangChain, there is one line added per chain after importing Statics.
 
-After import, there is one line to insert per chain.
-
-
-```python
-from statics-ai import LangChainFilter as statics-filter # line addition
+```python Filter LangChain Chains
+from statics-ai import LangChainFilter as statics-filter 
 
 # ...instantiation...
 
@@ -33,13 +29,9 @@ rag_chain = (
 )
 ```
 
+For JSON data sources, there are two lines of change per datasource after importing Statics.
 
-#### Filter JSON Data
-
-After import, there are two lines of change per datasource.
-
-
-```python
+```python Filter JSON Data
 from statics-ai import JSONFilter
 
 # ...instantiation...
