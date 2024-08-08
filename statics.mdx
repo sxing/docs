@@ -1,0 +1,186 @@
+---
+title: 'Statics Quick Start'
+description: 'Secure your LLM data in no time.'
+---
+
+# Introduction
+Statics is a security framework for observing and safeguarding data access for LLMs. Including Statics can be done with low configuration work and by inserting a Statics filter into your LangChain chain.
+
+# Installation
+Installation requires downloading the Statics package and a few changed lines in your code.
+
+#### Downloading Statics
+```bash
+pip install statics-ai
+```
+
+#### Import Statics and wrap your existing LangChain models
+```python
+from statics-ai import LangChainFilter as statics-filter # add line here
+
+# For a RAG chain inserting an LLM
+rag_chain = (
+   {"context": retriever | format_docs, "question": RunnablePassthrough()}
+   | statics-filter("service-token","data-id") # add line here
+   | prompt
+   | llm
+   | StrOutputParser()
+)
+```
+
+For applications using chains, there is only one line to import and one line to insert per chain.
+
+
+# Access Control
+
+With zero additional configuration, Statics is able to provide a data access log of data access, model usage, and incoming prompts. However, with low configuration, Statics is able to create access control for your data depending on the user, machine, or agent permissions related to the incoming request. 
+
+## Access Control Creation Process
+
+After installation, you can create access control using either by uploading data to the service or pasting sample data into the Statics access control configuration portal. Using this data, you can have Statics suggest rules, write rule requests in plain English, or use a drag and drop interface to create rules visually. 
+
+Once this is complete, we generate the access control rule as code and ask you to validate the result. We will also create data upload filters to ensure that Statics only uploads data relevant towards determining access control from here. 
+
+Hit save and it goes into effect! Statics will filter out any data from being passed downstream that a user, machine, or agent does not have access to. 
+
+The following are examples of artifacts generated as part of the process.
+
+## LangChain
+For filtering within a LangChain chain, Statics will pull the metadata passed within the data stream.
+
+#### Example Data
+```python
+[ 
+  Document(page_content='Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans.', metadata={'chunk': 0.0, 'source': 'https://en.wikipedia.org/wiki/Artificial_intelligence', 'title': 'Artificial Intelligence', 'wiki-id': '5678'}), 
+  Document(page_content='AI research began in the mid-20th century, and has seen several waves of optimism and setbacks, including the famous AI winters.', metadata={'chunk': 1.0, 'source': 'https://en.wikipedia.org/wiki/Artificial_intelligence', 'title': 'Artificial Intelligence', 'wiki-id': '5678'}), 
+  Document(page_content='Machine learning, a subset of AI, involves the use of algorithms and statistical models to perform tasks without using explicit instructions.', metadata={'chunk': 3.0, 'source': 'https://en.wikipedia.org/wiki/Machine_learning', 'title': 'Machine Learning', 'wiki-id': '1234'}), 
+  Document(page_content='Neural networks, inspired by the human brain, are a key technology behind many modern AI applications, including image and speech recognition.', metadata={'chunk': 5.0, 'source': 'https://en.wikipedia.org/wiki/Neural_network', 'title': 'Neural Network', 'wiki-id': '9101'}), 
+  Document(page_content='Deep learning, a branch of machine learning, uses multiple layers of neural networks to model complex patterns in data.', metadata={'chunk': 5.0, 'source': 'https://en.wikipedia.org/wiki/Deep_learning', 'title': 'Deep Learning', 'wiki-id': '1121'}), 
+  Document(page_content='The following numbers are secret and should be restricted: 23 2 80', metadata={'chunk': 5.0, 'source': '/secrets/restrictednumbers', 'title': 'Restricted numbers'}) 
+]
+
+```
+
+#### Example Upload Filter & Access Control Rule. 
+
+In this example, the desired behavior is to not restrict access to any wikipedia data and to check an Access Control List for access to the secrets section.
+
+```python
+document_id = metadata.id
+source = metadata.source
+```
+
+```python
+import re
+
+if re.match(r"/secrets/*", url_to_check):
+	if user in SECRETS_CONTROL_LIST:
+		return true
+else 
+  return false
+
+if re.match(r"https://en\.wikipedia\.org", url_to_check):
+	return true
+
+return false
+```
+
+## JSON Data Control (Vector, NoSQL, Relational, and Others)
+
+If you are using Statics outside of a LangChain chain, pass your data to Statics as a JSON. This is recommended for direct use of VDBs, NoSQ DBs, Relational DBs, and other data sources. 
+
+#### Example Data
+```json
+{
+  "data": [
+	{
+  	"id": 1,
+  	"department": "Sales",
+  	"accounting_code": "SAL-001",
+  	"revenue": 120000,
+  	"expenses": 70000,
+  	"profit": 50000,
+  	"date": "2024-07-31",
+  	"metadata": {
+    	"source": "https://internal.com/accounting",
+    	"description": "Monthly financial report for Sales department",
+    	"date_collected": "2024-08-07",
+    	"contact": "alice.johnson@internal.com"
+  	}
+	},
+	{
+  	"id": 2,
+  	"department": "Marketing",
+  	"accounting_code": "MAR-002",
+  	"revenue": 80000,
+  	"expenses": 50000,
+  	"profit": 30000,
+  	"date": "2024-07-31",
+  	"metadata": {
+    	"source": "https://internal.com/accounting",
+    	"description": "Monthly financial report for Marketing department",
+    	"date_collected": "2024-08-07",
+    	"contact": "alice.johnson@internal.com"
+  	}
+	},
+	{
+  	"id": 3,
+  	"department": "Research and Development",
+  	"accounting_code": "RND-003",
+  	"revenue": 150000,
+  	"expenses": 120000,
+  	"profit": 30000,
+  	"date": "2024-07-31",
+  	"metadata": {
+    	"source": "https://internal.com/accounting",
+    	"description": "Monthly financial report for R&D department",
+    	"date_collected": "2024-08-07",
+    	"contact": "alice.johnson@internal.com"
+  	}
+	},
+	{
+  	"id": 4,
+  	"department": "Human Resources",
+  	"accounting_code": "HR-004",
+  	"revenue": 50000,
+  	"expenses": 30000,
+  	"profit": 20000,
+  	"date": "2024-07-31",
+  	"metadata": {
+    	"source": "https://internal.com/accounting",
+    	"description": "Monthly financial report for HR department",
+    	"date_collected": "2024-08-07",
+    	"contact": "alice.johnson@internal.com"
+  	}
+	}
+  ]
+}
+
+```
+
+#### Example Upload Filter & Access Control Rule. 
+
+In this example, the desired behavior is to extract the department that the document belongs to and then validate the user against a saved Access Control List. 
+
+```python
+document_id = data.[].id
+department = data.[].department
+```
+
+```python
+match department:
+  case "Sales" :
+    if user in SALES_GROUP:
+      return true
+  case "Marketing":
+    if user in MARKETING_GROUP:
+      return true
+  case "Research and Development":
+    if user in RD_GROUP:
+      return true
+  case "Human Resources":
+    if user in HR_GROUP:
+      return true
+
+return false
+```
